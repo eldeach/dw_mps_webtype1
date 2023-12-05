@@ -98,6 +98,10 @@ withdrawElecSign(app)
 const elecSign = require('./bone_system/put/elecSign/elecSign');
 elecSign(app)
 
+// sys_avm
+const addMachine = require('./sys_avm/post/addMachine/addMachine')
+addMachine(app)
+
 // Middleware Function
 const mwAuthCheck = require ( './Passport/LocalStrategy/handleSessionFunc/middleware/mwAuthCheck' );
 
