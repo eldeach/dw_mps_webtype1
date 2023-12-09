@@ -81,7 +81,7 @@ myPrepared(app)
 const myReviewList = require('./bone_system/get/myReviewList');
 myReviewList(app)
 
-// Sys1
+// Sys_avm
 const userList = require('./bone_system/get/getUserList');
 userList(app)
 
@@ -91,15 +91,18 @@ approvalUserList(app)
 const addAccount = require('./sys1/post/addAccount/addAccount');
 addAccount(app)
 
-
 const withdrawElecSign = require('./bone_system/put/elecSign/withdrawElecSign');
 withdrawElecSign(app)
 
 const elecSign = require('./bone_system/put/elecSign/elecSign');
 elecSign(app)
 
+const getCdmsDocList = require('./sys1/get/getCdmsDocList/getCdmsDocList')
+getCdmsDocList(app)
+
 // sys_avm
-const addMachine = require('./sys_avm/post/addMachine/addMachine')
+// machine
+const addMachine = require('./sys1/post/addMachine/addMachine')
 addMachine(app)
 
 // Middleware Function
