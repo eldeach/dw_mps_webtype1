@@ -24,7 +24,9 @@ function getCdmsDocList (app) {
                 LEFT OUTER JOIN tb_groupware_user AS B
                 ON A.written_by = B.user_account
 
-            WHERE A.qualAtt like '%${req.query.qualAtt}%'
+            WHERE
+                A.${req.query.colName} like '%${req.query.qualAtt}%'
+                AND isProtocol = 0
             ORDER BY A.approval_date DESC
         `)
         res.status(200).json(rs)
