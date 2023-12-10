@@ -25,6 +25,7 @@ const addMachineMsg = require('./addMachineMsg');
 
 // its components - dbInsert
 const insertDetailedMcDoc = require('./insertSubRecord/insertDetailedMcDoc')
+const insertDetailedMcPrmList = require('./insertSubRecord/insertDetailedMcPrmList')
 const insertDetailedMcPrm = require('./insertSubRecord/insertDetailedMcPrm')
 
 
@@ -123,13 +124,19 @@ async function addMachine ( app ) {
             // 새 prm_list ID 발행받기 (DB에 저장)
             let prm_list_id = await insertNewIdNumber( 'prm_list_id', 'tb_prm_list_id', 'plisti_' )
             // 새로 받은 정기적 멸균 재적격성 평가 목록 ID로 DB에 저장하기
-            // let rsDetailed_prm_list = await insertDetailedMcPrmList( 'tb_prm_list', 'prm_list_id', prm_list_id, req.body.prm_list )
+            let rsDetailed_prm_list = await insertDetailedMcPrmList( prm_list_id, req.body.prm_list )
             
             // prm_bathsize 검증 저장 준비
             // 새 prm_bathsize 검증 ID 발행받기 (DB에 저장)
-            let prm_bathsize_id = await insertNewIdNumber( 'prm_bathsize_id', 'tb_prm_bathsize_id', 'pbi_' )
+            let prm_bathsize_id = await insertNewIdNumber( 'prm_bathsize_id', 'tb_prm_bathsize_id', 'pbsi_' )
             // 새로 받은 정기적 멸균 재적격성 평가 목록 ID로 DB에 저장하기
             let rsDetailed_prm_bathsize = await insertDetailedMcPrm( 'tb_prm_bathsize', 'prm_bathsize_id', prm_bathsize_id, req.body.prm_bathsize )
+            
+            // prm_bathsize_kg 검증 저장 준비
+            // 새 prm_bathsize_kg 검증 ID 발행받기 (DB에 저장)
+            let prm_bathsize_kg_id = await insertNewIdNumber( 'prm_bathsize_kg_id', 'tb_prm_bathsize_kg_id', 'pbskgi_' )
+            // 새로 받은 정기적 멸균 재적격성 평가 목록 ID로 DB에 저장하기
+            let rsDetailed_prm_bathsize_kg = await insertDetailedMcPrm( 'tb_prm_bathsize_kg', 'prm_bathsize_kg_id', prm_bathsize_kg_id, req.body.prm_bathsize_kg )
 
             // prm_gentlewing 검증 저장 준비
             // 새 prm_gentlewing 검증 ID 발행받기 (DB에 저장)
@@ -333,8 +340,6 @@ async function addMachine ( app ) {
                 '${prm_atair_id}',
                 '${prm_fill_id}'               
             )`.replace(/\n/g, "")
-
-            console.log(qryStr)
 
             let qryRs = await sendQry(qryStr)
 

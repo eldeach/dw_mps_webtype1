@@ -3,9 +3,10 @@
 const { sendQry } = require ('../../../../dbconns/maria/thisdb');
 
 
-async function insertDetailedMcPrm (id_str, values) {
+async function insertDetailedMcPrmList (id_str, values) {
     let affectedRows = 0;
-    values.map(async (value, index) =>{
+    console.log(Object.keys(values[0]))
+    Object.keys(values[0]).map(async (oneKey, index) =>{
         let insertRs = await sendQry(
             `INSERT INTO tb_prm_list (
                 prm_list_id,
@@ -14,8 +15,8 @@ async function insertDetailedMcPrm (id_str, values) {
             )
             VALUES (
                 '${id_str}',
-                ${value.minValue},
-                ${value.maxValue}
+                '${oneKey}',
+                ${values[0][oneKey]}
             )
             `.replace(/\n/g, "")
         ).then(( rs ) => {
@@ -29,4 +30,4 @@ async function insertDetailedMcPrm (id_str, values) {
     return affectedRows;
 }
 
-module.exports = insertDetailedMcPrm;
+module.exports = insertDetailedMcPrmList;
