@@ -10,11 +10,11 @@ function getCdmsDocList (app) {
         let rs = await sendQry_toCdms(`
             SELECT
                 A.doc_no AS doc_no,
-                A.rev_no AS rev_no,
+                A.rev_no AS doc_rev_no,
                 A.doc_title AS doc_title,
                 B.user_name AS user_name,
                 A.written_by_team AS written_by_team,
-                date_format(A.approval_date, '%Y-%m-%d')AS approval_date,
+                date_format(A.approval_date, '%Y-%m-%d') AS approval_date,
                 if(A.invalid_date < '1970-01-02', NULL, date_format(A.invalid_date, '%Y-%m-%d')) AS invalid_date,
                 if(A.imp_start_date < '1970-01-02', NULL, date_format(A.imp_start_date, '%Y-%m-%d')) AS imp_start_date,
                 if(A.imp_completion_date < '1970-01-02', NULL, date_format(A.imp_completion_date, '%Y-%m-%d')) AS imp_completion_date,

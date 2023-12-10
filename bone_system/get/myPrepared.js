@@ -19,9 +19,9 @@ async function myPrepared (app){
                 B.approval_status AS approval_status
             FROM
                 tb_approval_payload_id AS A
-                LEFT OUTER JOIN tb_user AS B
+                LEFT OUTER JOIN ${req.query.data_tbl_name} AS B
                 ON A.approval_payload_id = B.approval_payload_id	
-            WHERE prepared_by = '${req.user}' AND sys_code = '${req.query.sys_code}'
+            WHERE prepared_by = '${req.user}' AND sys_code = '${req.query.sys_code}' AND tbl_name = '${req.query.data_tbl_name}'
             `.replace(/\n/g, "")
         )
         res.status(200).json(rs)

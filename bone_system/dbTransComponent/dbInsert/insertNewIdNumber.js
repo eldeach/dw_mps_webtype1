@@ -7,7 +7,16 @@ async function insertNewIdNumber (idColName, tblName, idKeyword) {
     let rs = await sendQry(
         `SELECT MAX(CAST(REPLACE( ${idColName}, '${idKeyword}', '') AS INT)) AS max_no FROM ${tblName}`
     )
-    let newId = idKeyword.concat(parseInt(rs[0].max_no) + 1)
+
+    console.log(rs)
+    let currentIdNo = 0;
+    if ( !rs[0].max_no) {
+        currentIdNo = 0
+    } else {
+        currentIdNo = parseInt(rs[0].max_no)
+    }
+
+    let newId = idKeyword.concat( currentIdNo + 1)
     let inputRs = await sendQry(
         `INSERT INTO `.concat(tblName)
         .concat(` (`).concat(idColName).concat(`) `)

@@ -1,5 +1,3 @@
-
-
 // ======================================================================================== [Import Component] js
 // Function
 const { sendQry } = require ('../../../dbconns/maria/thisdb');
@@ -56,7 +54,7 @@ async function addAccount ( app ) {
         } else {
             // 결재라인 준비
             // 새 결재라인 ID 발행받기 (DB에 저장)
-            let approval_payload_id = await insertNewApprovalId('tb_user', 'sys1', '사용자 계정 (User account)', 'System 1', req.body.prepared_type, req.user )
+            let approval_payload_id = await insertNewApprovalId('tb_user', 'avm', '사용자 계정 (User account)', 'System 1', req.body.prepared_type, req.user )
             // 새로 발행받은 결재라인 ID로 결재라인 정보 DB에 저장하기
             let apStoreRs = await insertNewApprovalPayload(approval_payload_id, req.body.approval_payload)
 
@@ -100,6 +98,7 @@ async function addAccount ( app ) {
             // 비밀번호 hash 암호화
             let hashedPw = await changeToHash(req.body.user_pw)
 
+            // 데이터 쿼리 준비
             let qryStr = `INSERT INTO tb_user (
                 uuid_binary,
                 data_ver,
