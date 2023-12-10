@@ -2,7 +2,6 @@
 // Function
 const { sendQry } = require ('../../../../dbconns/maria/thisdb');
 
-
 async function insertDetailedMcPrmList (id_str, values) {
     let affectedRows = 0;
     console.log(Object.keys(values[0]))
