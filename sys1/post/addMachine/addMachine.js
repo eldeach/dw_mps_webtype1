@@ -59,6 +59,13 @@ async function addMachine ( app ) {
             // 새로 발행받은 결재라인 ID로 결재라인 정보 DB에 저장하기
             let apStoreRs = await insertNewApprovalPayload(approval_payload_id, req.body.approval_payload)
 
+            // console.log('mc_periodic_1y_qual_id')
+            // 정기적 재적격성 평가 저장 준비
+            // 새 정기적 재적격성 평가 목록 ID 발행받기 (DB에 저장)
+            let mc_periodic_1y_qual_id = await insertNewIdNumber( 'mc_periodic_1y_qual_id', 'tb_mc_periodic_1y_qual_id', 'mp1yqi_' )
+            // 새로 받은 정기적 재적격성 평가 목록 ID로 DB에 저장하기
+            let rsDetailed_mc_periodic_1y_qual = await insertDetailedMcDoc( 'tb_mc_periodic_1y_qual', 'mc_periodic_1y_qual_id', mc_periodic_1y_qual_id, req.body.mc_periodic_1y_qual )
+            
             // console.log('mc_periodic_qual_id')
             // 정기적 재적격성 평가 저장 준비
             // 새 정기적 재적격성 평가 목록 ID 발행받기 (DB에 저장)
@@ -128,6 +135,13 @@ async function addMachine ( app ) {
             let mc_periodic_mt_id = await insertNewIdNumber( 'mc_periodic_mt_id', 'tb_mc_periodic_mt_id', 'mpmi_' )
             // 새로 받은 정기적 멸균 재적격성 평가 목록 ID로 DB에 저장하기
             let rsDetailed_mc_periodic_mt = await insertDetailedMcDoc( 'tb_mc_periodic_mt', 'mc_periodic_mt_id', mc_periodic_mt_id, req.body.mc_periodic_mt )
+
+            // console.log('mc_periodic_1y_mt')
+            // mc_mt 저장 준비
+            // 새 mc_mt ID 발행받기 (DB에 저장)
+            let mc_periodic_1y_mt_id = await insertNewIdNumber( 'mc_periodic_1y_mt_id', 'tb_mc_periodic_1y_mt_id', 'm1ypmi_' )
+            // 새로 받은 정기적 멸균 재적격성 평가 목록 ID로 DB에 저장하기
+            let rsDetailed_mc_periodic_1y_mt = await insertDetailedMcDoc( 'tb_mc_periodic_1y_mt', 'mc_periodic_1y_mt_id', mc_periodic_1y_mt_id, req.body.mc_periodic_1y_mt )
 
             // console.log('mc_mt_id')
             // mc_mt 저장 준비
@@ -312,12 +326,15 @@ async function addMachine ( app ) {
                 mng_team,
                 machine_type,
                 gmp_impact,
+                periodic_mng_1y_qual,
                 periodic_mng_qual,
                 periodic_mng_ster,
                 periodic_mng_vhp,
                 periodic_mng_review,
                 periodic_mng_cv,
+                periodic_mng_1y_mt,
                 periodic_mng_mt,
+                mc_periodic_1y_qual_id,
                 mc_periodic_qual_id,
                 mc_periodic_ster_id,
                 mc_periodic_vhp_id,
@@ -327,6 +344,7 @@ async function addMachine ( app ) {
                 mc_pq_id,
                 mc_periodic_cv_id,
                 mc_cv_id,
+                mc_periodic_1y_mt_id,
                 mc_periodic_mt_id,
                 mc_mt_id,
                 prm_list_id,
@@ -367,12 +385,15 @@ async function addMachine ( app ) {
                 '${req.body.mng_team}',
                 '${req.body.machine_type}',
                 ${req.body.gmp_impact},
+                ${req.body.periodic_mng_1y_qual},
                 ${req.body.periodic_mng_qual},
                 ${req.body.periodic_mng_ster},
                 ${req.body.periodic_mng_vhp},
                 ${req.body.periodic_mng_review},
                 ${req.body.periodic_mng_cv},
+                ${req.body.periodic_mng_1y_mt},
                 ${req.body.periodic_mng_mt},
+                '${mc_periodic_1y_qual_id}',
                 '${mc_periodic_qual_id}',
                 '${mc_periodic_ster_id}',
                 '${mc_periodic_vhp_id}',
@@ -382,6 +403,7 @@ async function addMachine ( app ) {
                 '${mc_pq_id}',
                 '${mc_periodic_cv_id}',
                 '${mc_cv_id}',
+                '${mc_periodic_1y_mt_id}',
                 '${mc_periodic_mt_id}',
                 '${mc_mt_id}',
                 '${prm_list_id}',
