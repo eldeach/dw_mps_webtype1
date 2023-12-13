@@ -8,7 +8,6 @@ async function insertNewIdNumber (idColName, tblName, idKeyword) {
         `SELECT MAX(CAST(REPLACE( ${idColName}, '${idKeyword}', '') AS INT)) AS max_no FROM ${tblName}`
     )
 
-    console.log(rs)
     let currentIdNo = 0;
     if ( !rs[0].max_no) {
         currentIdNo = 0

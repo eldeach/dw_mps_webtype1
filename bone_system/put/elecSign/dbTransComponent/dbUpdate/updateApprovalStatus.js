@@ -2,7 +2,7 @@
 // Function
 const { sendQry } = require ('../../../../../dbconns/maria/thisdb');
 async function updateApprovalStatus(tbl_name, approval_payload_id, approval_status, dataVerPlus){
-    console.log(tbl_name)
+    // console.log(tbl_name)
     // 특정 테이블에 귀속되면 안됨
     // tb_approval_payload_id, tb_approval_payload 두개 테이블과 tbl_name 값만 사용해서 데이터 테이블 레코드에 접근해야함
     let subVer = ''

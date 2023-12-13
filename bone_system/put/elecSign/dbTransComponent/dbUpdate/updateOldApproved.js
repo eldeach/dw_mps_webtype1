@@ -6,7 +6,7 @@ async function updateOldApproved(tbl_name, approval_payload_id) {
     let rs = await sendQry(`
         UPDATE ${tbl_name}
         SET approval_status = 'VOID'
-        WHERE approval_payload_id = (SELECT previous_approval_payload_id FROM tb_user WHERE approval_payload_id = '${approval_payload_id}')
+        WHERE approval_payload_id = (SELECT previous_approval_payload_id FROM ${tbl_name} WHERE approval_payload_id = '${approval_payload_id}')
     `)
 
     return rs;

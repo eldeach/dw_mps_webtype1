@@ -64,7 +64,7 @@ async function elecSign (app) {
                         .then( async ( rs ) => {
                             let preparedType = await selectPreparedType(req.body.approval_payload_id)
                             let approvalStr="APPROVED"
-                            console.log(preparedType.prepared_type)
+                            // console.log(preparedType.prepared_type)
                             if ( preparedType.prepared_type == 'VOID') {
                                 approvalStr = 'VOID'
                             }

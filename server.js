@@ -102,8 +102,12 @@ getCdmsDocList(app)
 
 // sys_avm
 // machine
+const getMachineList = require('./sys1/get/getMachineList/getMachineList')
+getMachineList(app)
 const addMachine = require('./sys1/post/addMachine/addMachine')
 addMachine(app)
+const getMachinePrQualList = require('./sys1/get/getMachinePrQualList/getMachinePrQualList')
+getMachinePrQualList(app)
 
 // Middleware Function
 const mwAuthCheck = require ( './Passport/LocalStrategy/handleSessionFunc/middleware/mwAuthCheck' );
