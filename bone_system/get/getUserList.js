@@ -150,7 +150,7 @@ async function userList (app){
                                 A.user_account AS user_account,
                                 A.user_name AS user_name,
                                 A.user_nickname AS user_nickname,
-                                A.user_birthday AS user_birthday,
+                                if((user_birthday < '1970-01-02' OR user_birthday IS NULL), '', date_format(A.user_birthday,'%Y-%m-%d')) AS user_birthday,
                                 A.user_gender AS user_gender,
                                     CONCAT('[',
                                         GROUP_CONCAT(

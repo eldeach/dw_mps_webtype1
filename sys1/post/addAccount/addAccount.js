@@ -96,6 +96,14 @@ async function addAccount ( app ) {
             // 비밀번호 hash 암호화
             let hashedPw = await changeToHash(req.body.user_pw)
 
+            let birthday = null
+
+            if (!req.body.user_birthday) {
+                
+            } else {
+                birthday = `date_format('${req.body.user_birthday}','%Y-%m-%d')`
+            }
+ 
             // 데이터 쿼리 준비
             let qryStr = `INSERT INTO tb_user (
                 uuid_binary,
@@ -133,7 +141,7 @@ async function addAccount ( app ) {
                 '${hashedPw}',
                 '${req.body.user_name}',
                 '${req.body.user_nickname}',
-                '${req.body.user_birthday}',
+                ${birthday},
                 '${req.body.user_gender}',
                 '${user_email_id}',
                 '${user_phone_id}',
