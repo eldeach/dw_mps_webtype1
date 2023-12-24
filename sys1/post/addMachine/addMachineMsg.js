@@ -1,8 +1,8 @@
 const addMachineMsg = {
     addSuccess : {
         msgCode : "post_addmachine_msg_1",
-        kor : "설비/시스템 추가에 성공했습니다.",
-        eng : "User Machine/System addition was successful.",
+        kor : "설비/시스템 추가 제출에 성공했습니다.",
+        eng : "Submission of Machine/System addition was successful.",
     },
     addFail : {
         duplicated : {

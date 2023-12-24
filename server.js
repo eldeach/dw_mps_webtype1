@@ -55,8 +55,8 @@ app.use( express.static(path.join(__dirname, process.env.react_build_path )));
 //app.use( "/", express.static("public") );
 
 // 포트 정의
-app.listen( 8080, function() {
-  console.log('listening on '+ 8080)
+app.listen( process.env.httpPORT, function() {
+  console.log('listening on '+ process.env.httpPORT)
 })
 
 // https 의존성으로 certificate와 private key로 새로운 서버를 시작
@@ -67,7 +67,6 @@ app.listen( 8080, function() {
 
 // ======================================================================================== [Import Component] js
 // Function
-const {sendQry, selectQry, insertQry, updateQry, batchInsertFunc, batchInsertOnDupliFunc, whereClause, truncateTable} = require ('./dbconns/maria/thisdb');
 const passportLocal = require('./Passport/LocalStrategy/passportLocal');
 passportLocal(app);
 

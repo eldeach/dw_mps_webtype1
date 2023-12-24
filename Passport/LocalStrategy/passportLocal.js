@@ -23,7 +23,15 @@ const passportLocalMsg = require ( './passportLocalMsg' );
 
 function passportLocal ( app ) {
   // 
-  app.use (session({ secret : process.env.passport_secret_code, resave : false, saveUninitialized: false, cookie: { maxAge : expireTimeMinutes*60000 }, rolling : true }));
+  app.use (session({
+    name : 'avm.connect.sid',
+    secret : process.env.passport_secret_code,
+    resave : false,
+    saveUninitialized: false,
+    cookie: { 
+        maxAge : expireTimeMinutes*60000,
+    },
+    rolling : true }));
   app.use (passport.initialize());
   app.use (passport.session());
 

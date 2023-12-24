@@ -34,7 +34,7 @@ async function insertNewApprovalPayload (approval_payload_id, arrPpayload) {
                 })
                 .catch(( error ) => {
                     console.log( error )
-                    affectedRows = -1;
+                    return false
                 })
             })
         }

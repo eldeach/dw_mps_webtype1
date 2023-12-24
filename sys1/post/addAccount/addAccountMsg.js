@@ -2,7 +2,7 @@ const addAccountMsg = {
     addSuccess : {
         msgCode : "post_addaccount_msg_1",
         kor : "사용자 계정 추가에 성공했습니다.",
-        eng : "User account addition was successful.",
+        eng : "Submission of user account addition was successful.",
     },
     addFail : {
         duplicated : {

@@ -19,8 +19,13 @@ async function mwAuthCheck (req, res, next) {
             res.redirect( '/noauth' )
           }
     } else {
-        res.clearCookie( 'connect.sid' );
-        res.redirect( '/sessionexpired' )
+        req.session.destroy( async() => {
+            // res.clearCookie( 'connect.sid' );
+            res.redirect( '/sessionexpired' );
+        });
+
+        // res.clearCookie( 'connect.sid' );
+        // res.redirect( '/sessionexpired' )
     }
 }
 module.exports = mwAuthCheck;

@@ -119,6 +119,13 @@ async function addProduct ( app ) {
             )`.replace(/\n/g, "")
 
             let qryRs = await sendQry(qryStr)
+            .then((rs) => {
+                
+            })
+            .catch((error) => {
+                console.log(error)
+                res.status(512).json(addProductMsg.elecSignFail.dbFail)
+            })
 
             if ( req.body.immediate_effective ) {
                 await updateApprovalPayloadFinish(approval_payload_id) // 결재라인 완료 처리 (done_datetime 컬럼값 업데이트) 
@@ -148,6 +155,8 @@ async function addProduct ( app ) {
                     console.log(error)
                     res.status(512).json(addProductMsg.elecSignFail.dbFail)
                 })
+            } else {
+                res.status(200).json(addProductMsg.addSuccess)
             }
         }
     })
