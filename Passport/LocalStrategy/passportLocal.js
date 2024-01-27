@@ -11,6 +11,9 @@ const expireTimeMinutes = process.env.passport_session_expire_time_minutes
 const bcrypt = require('bcrypt'); // bcrypt 라이브러리 
 const saltRounds = 10;
 
+//moment
+const moment = require("moment");
+
 // ======================================================================================== [Import Component] js
 // Function
 const localLogout = require ( './handleSessionFunc/localLogout' )
@@ -41,7 +44,9 @@ function passportLocal ( app ) {
   app.post('/local-login', passport.authenticate( 'local', { successRedirect : "/local-login-success", failureRedirect : '/local-login-fail', failureFlash : true }));
     
   app.get('/local-login-success', function (req, res) {
-    res.status(200).json(passportLocalMsg.loginSuccess)
+    let tempMsg = passportLocalMsg.loginSuccess
+    tempMsg.expireDateTime = moment(new Date).add(tempMsg.expireTimeMinutes, 'm')
+    res.status(200).json(tempMsg)
   })
 
   app.get('/local-login-fail', function(req,res) {
@@ -74,13 +79,13 @@ function passportLocal ( app ) {
   }));
   
   passport.serializeUser( function ( userID, done ) {
-    console.log( "serialize" )
+    // console.log( "serialize" )
     return done( null,userID )
     
   });
   
   passport.deserializeUser( function ( userID, done ) {
-    console.log( "deserialize" )
+    // console.log( "deserialize" )
     done( null,userID )
   });
 }

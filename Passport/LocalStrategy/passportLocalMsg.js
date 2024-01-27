@@ -5,7 +5,7 @@ const passportLocalMsg = {
         msgCode : "passport_local_msg_1",
         kor : "로그인이 성공하였습니다.",
         eng : "Login was successful.",
-        expireTimeMinutes : expireTimeMinutes
+        expireTimeMinutes : expireTimeMinutes,
     },
     loginFail : {
         userLock : {
@@ -28,7 +28,7 @@ const passportLocalMsg = {
         msgCode : "passport_local_msg_5",
         kor : "현재 로그인 상태입니다.",
         eng : "You are currently logged in.",
-        expireTimeMinutes : expireTimeMinutes
+        expireTimeMinutes : expireTimeMinutes,
     },
     sessionNotOk : {
         msgCode : "passport_local_msg_6",

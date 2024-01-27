@@ -71,24 +71,6 @@ const passportLocal = require('./Passport/LocalStrategy/passportLocal');
 passportLocal(app);
 
 // bone_system
-const getAuthList = require('./bone_system/get/getAuthList');
-getAuthList(app)
-
-const myPrepared = require('./bone_system/get/myPrepared');
-myPrepared(app)
-
-const myReviewList = require('./bone_system/get/myReviewList');
-myReviewList(app)
-
-// Sys_avm
-const userList = require('./bone_system/get/getUserList');
-userList(app)
-
-const approvalUserList = require('./bone_system/get/approvalUserList');
-approvalUserList(app)
-
-const addAccount = require('./sys1/post/addAccount/addAccount');
-addAccount(app)
 
 const withdrawElecSign = require('./bone_system/put/elecSign/withdrawElecSign');
 withdrawElecSign(app)
@@ -96,45 +78,107 @@ withdrawElecSign(app)
 const elecSign = require('./bone_system/put/elecSign/elecSign');
 elecSign(app)
 
-const getCdmsDocList = require('./sys1/get/getCdmsDocList/getCdmsDocList')
+const getCdmsDocList = require('./CRUD/get/AVM/getCdmsDocList/getCdmsDocList')
 getCdmsDocList(app)
 
-// sys_avm
-// machine
-const getMachineList = require('./sys1/get/getMachineList/getMachineList')
-getMachineList(app)
-const addMachine = require('./sys1/post/addMachine/addMachine')
-addMachine(app)
-const getprCv = require('./sys1/get/getprCv/getprCv')
-getprCv(app)
-const getreMap1year = require('./sys1/get/getreMap1year/getreMap1year')
-getreMap1year(app)
-const getreMap3year = require('./sys1/get/getreMap3year/getreMap3year')
-getreMap3year(app)
-const getrequal5year = require('./sys1/get/getrequal5year/getrequal5year')
-getrequal5year(app)
-const getrequal1year = require('./sys1/get/getrequal1year/getrequal1year')
-getrequal1year(app)
-const getrequalSter = require('./sys1/get/getrequalSter/getrequalSter')
-getrequalSter(app)
-const getrequalVHP = require('./sys1/get/getrequalVHP/getrequalVHP')
-getrequalVHP(app)
-const getprReview = require('./sys1/get/getprReview/getprReview')
-getprReview(app)
-const getEqPrm = require('./sys1/get/getEqPrm/getEqPrm')
+
+// get/System/User
+const userList = require('./CRUD/get/System/User/getUserList');
+userList(app)
+const getAuthList = require('./CRUD/get/System/User/getAuthList');
+getAuthList(app)
+// get/System/Approval
+const myPrepared = require('./CRUD/get/System/Approval/myPrepared');
+myPrepared(app)
+const myReviewList = require('./CRUD/get/System/Approval/myReviewList');
+myReviewList(app)
+const approvalUserList = require('./CRUD/get/System/Approval/approvalUserList');
+approvalUserList(app)
+
+// get/AVM/Machine
+// const getMachineList = require('./CRUD/get/AVM/Machine/getMachineList/getMachineList')
+// getMachineList(app)
+const getMachineListApproved = require('./CRUD/get/AVM/Machine/getMachineList/getMachineListApproved')
+getMachineListApproved(app)
+const getMachineListPrepared = require('./CRUD/get/AVM/Machine/getMachineList/getMachineListPrepared')
+getMachineListPrepared(app)
+const getMachineListRejected = require('./CRUD/get/AVM/Machine/getMachineList/getMachineListRejected')
+getMachineListRejected(app)
+const getMachineListUnderApproved = require('./CRUD/get/AVM/Machine/getMachineList/getMachineListUnderApproved')
+getMachineListUnderApproved(app)
+const getMachineListUnderVoid = require('./CRUD/get/AVM/Machine/getMachineList/getMachineListUnderVoid')
+getMachineListUnderVoid(app)
+
+const getEqPrm = require('./CRUD/get/AVM/Machine/getEqPrm/getEqPrm')
 getEqPrm(app)
-const getProductList = require('./sys1/get/getProductList/getProductList')
+
+// get/AVM/Mapping
+const getreMap1year = require('./CRUD/get/AVM/Mapping/getReMap1year/getReMap1year')
+getreMap1year(app)
+const getReMap3year = require('./CRUD/get/AVM/Mapping/getReMap3year/getReMap3year')
+getReMap3year(app)
+const getReMap3YearSeason = require('./CRUD/get/AVM/Mapping/getReMap3YearSeason/getReMap3YearSeason')
+getReMap3YearSeason(app)
+
+// get/AVM/Qual
+const getrequal1year = require('./CRUD/get/AVM/Qual/getrequal1year/getrequal1year')
+getrequal1year(app)
+const getrequal5year = require('./CRUD/get/AVM/Qual/getrequal5year/getrequal5year')
+getrequal5year(app)
+const getrequalSter = require('./CRUD/get/AVM/Qual/getrequalSter/getrequalSter')
+getrequalSter(app)
+const getrequalVHP = require('./CRUD/get/AVM/Qual/getrequalVHP/getrequalVHP')
+getrequalVHP(app)
+
+const getPrReview = require('./CRUD/get/AVM/Qual/getPrReview/getPrReview')
+getPrReview(app)
+
+// get/AVM/CV
+const getPrCv = require('./CRUD/get/AVM/Machine/getPrCv/getPrCv')
+getPrCv(app)
+
+// get/AVM/Product
+const getProductList = require('./CRUD/get/AVM/Product/getProductList/getProductList')
 getProductList(app)
-const addProduct = require('./sys1/post/addProduct/addProduct')
+const getPrPV = require('./CRUD/get/AVM/Product/getPrPV/getPrPV')
+getPrPV(app)
+
+// post/AVM/
+const addMachine = require('./CRUD/post/AVM/addMachine/addMachine')
+addMachine(app)
+const addProduct = require('./CRUD/post/AVM/addProduct/addProduct')
 addProduct(app)
-const getprPV = require('./sys1/get/getprPV/getprPV')
-getprPV(app)
+
+// post/System
+const addAccount = require('./CRUD/post/System/addAccount/addAccount');
+addAccount(app)
+
 
 // Middleware Function
 const mwAuthCheck = require ( './Passport/LocalStrategy/handleSessionFunc/middleware/mwAuthCheck' );
 
 //================================================================================ [공통 기능] 모든 route를 react SPA로 연결 (이 코드는 맨 아래 있어야함)
 app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname, process.env.react_build_path+'index.html'));
+});
+
+app.get('/viewrequal', function (req, res) {
+  res.sendFile(path.join(__dirname, process.env.react_build_path+'index.html'));
+});
+
+app.get('/viewmt', function (req, res) {
+  res.sendFile(path.join(__dirname, process.env.react_build_path+'index.html'));
+});
+
+app.get('/viewprm', function (req, res) {
+  res.sendFile(path.join(__dirname, process.env.react_build_path+'index.html'));
+});
+
+app.get('/viewcv', function (req, res) {
+  res.sendFile(path.join(__dirname, process.env.react_build_path+'index.html'));
+});
+
+app.get('/viewpv', function (req, res) {
   res.sendFile(path.join(__dirname, process.env.react_build_path+'index.html'));
 });
 
@@ -153,6 +197,7 @@ app.get('/local-logout', function (req, res) {
 app.get('/sessioncheck', function (req, res) {
   res.sendFile(path.join(__dirname, process.env.react_build_path+'index.html'));
 });
+
 
 app.get('*', mwAuthCheck, function (req, res) {
   res.sendFile(path.join(__dirname, process.env.react_build_path+'index.html'));
