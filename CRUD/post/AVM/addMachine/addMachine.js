@@ -178,6 +178,21 @@ async function addMachine ( app ) {
             // 새로 받은 정기적 멸균 재적격성 평가 목록 ID로 DB에 저장하기
             let rsDetailed_prm_batchsize_kg = await insertDetailedMcPrm( 'tb_prm_batchsize_kg', 'prm_batchsize_kg_id', prm_batchsize_kg_id, req.body.prm_batchsize_kg )
             
+            // console.log('prm_batchsize_vial_id')
+            // prm_batchsize_vial 검증 저장 준비
+            // 새 prm_batchsize_vial 검증 ID 발행받기 (DB에 저장)
+            let prm_batchsize_vial_id = await insertNewIdNumber( 'prm_batchsize_vial_id', 'tb_prm_batchsize_vial_id', 'pbvi_' )
+            // 새로 받은 정기적 멸균 재적격성 평가 목록 ID로 DB에 저장하기
+            let prm_batchsize_vial = await insertDetailedMcPrm( 'tb_prm_batchsize_vial', 'prm_batchsize_vial_id', prm_batchsize_vial_id, req.body.prm_batchsize_vial )
+            
+            
+            // console.log('prm_batchsize_syringe_id')
+            // prm_batchsize_syringe 검증 저장 준비
+            // 새 prm_batchsize_syringe 검증 ID 발행받기 (DB에 저장)
+            let prm_batchsize_syringe_id = await insertNewIdNumber( 'prm_batchsize_syringe_id', 'tb_prm_batchsize_syringe_id', 'pbsi_' )
+            // 새로 받은 정기적 멸균 재적격성 평가 목록 ID로 DB에 저장하기
+            let prm_batchsize_syringe = await insertDetailedMcPrm( 'tb_prm_batchsize_syringe', 'prm_batchsize_syringe_id', prm_batchsize_syringe_id, req.body.prm_batchsize_syringe )
+            
             // console.log('prm_gentlewing_id')
             // prm_gentlewing 검증 저장 준비
             // 새 prm_gentlewing 검증 ID 발행받기 (DB에 저장)
@@ -458,6 +473,8 @@ async function addMachine ( app ) {
                 prm_list_id,
                 prm_batchsize_id,
                 prm_batchsize_kg_id,
+                prm_batchsize_vial_id,
+                prm_batchsize_syringe_id,
                 prm_gentlewing_id,
                 prm_chopper_id,
                 prm_spray_id,
@@ -533,6 +550,8 @@ async function addMachine ( app ) {
                 '${prm_list_id}',
                 '${prm_batchsize_id}',
                 '${prm_batchsize_kg_id}',
+                '${prm_batchsize_vial_id}',
+                '${prm_batchsize_syringe_id}',
                 '${prm_gentlewing_id}',
                 '${prm_chopper_id}',
                 '${prm_spray_id}',

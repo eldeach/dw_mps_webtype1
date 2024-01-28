@@ -83,8 +83,19 @@ getCdmsDocList(app)
 
 
 // get/System/User
-const userList = require('./CRUD/get/System/User/getUserList');
-userList(app)
+// const userList = require('./CRUD/get/System/User/getUserList');
+// userList(app)
+const getUserListApproved = require('./CRUD/get/System/User/getUserListApproved');
+getUserListApproved(app)
+const getUserListPrepared = require('./CRUD/get/System/User/getUserListPrepared');
+getUserListPrepared(app)
+const getUserListRejected = require('./CRUD/get/System/User/getUserListRejected');
+getUserListRejected(app)
+const getUserListUnderApproved = require('./CRUD/get/System/User/getUserListUnderApproved');
+getUserListUnderApproved(app)
+const getUserListVoid = require('./CRUD/get/System/User/getUserListVoid');
+getUserListVoid(app)
+
 const getAuthList = require('./CRUD/get/System/User/getAuthList');
 getAuthList(app)
 // get/System/Approval
@@ -96,8 +107,6 @@ const approvalUserList = require('./CRUD/get/System/Approval/approvalUserList');
 approvalUserList(app)
 
 // get/AVM/Machine
-// const getMachineList = require('./CRUD/get/AVM/Machine/getMachineList/getMachineList')
-// getMachineList(app)
 const getMachineListApproved = require('./CRUD/get/AVM/Machine/getMachineList/getMachineListApproved')
 getMachineListApproved(app)
 const getMachineListPrepared = require('./CRUD/get/AVM/Machine/getMachineList/getMachineListPrepared')
@@ -106,11 +115,13 @@ const getMachineListRejected = require('./CRUD/get/AVM/Machine/getMachineList/ge
 getMachineListRejected(app)
 const getMachineListUnderApproved = require('./CRUD/get/AVM/Machine/getMachineList/getMachineListUnderApproved')
 getMachineListUnderApproved(app)
-const getMachineListUnderVoid = require('./CRUD/get/AVM/Machine/getMachineList/getMachineListUnderVoid')
-getMachineListUnderVoid(app)
+const getMachineListVoid = require('./CRUD/get/AVM/Machine/getMachineList/getMachineListVoid')
+getMachineListVoid(app)
 
 const getEqPrm = require('./CRUD/get/AVM/Machine/getEqPrm/getEqPrm')
 getEqPrm(app)
+const getPrmDocs = require('./CRUD/get/AVM/Machine/getPrmDocs/getPrmDocs')
+getPrmDocs(app)
 
 // get/AVM/Mapping
 const getreMap1year = require('./CRUD/get/AVM/Mapping/getReMap1year/getReMap1year')
@@ -138,8 +149,19 @@ const getPrCv = require('./CRUD/get/AVM/Machine/getPrCv/getPrCv')
 getPrCv(app)
 
 // get/AVM/Product
-const getProductList = require('./CRUD/get/AVM/Product/getProductList/getProductList')
-getProductList(app)
+// const getProductList = require('./CRUD/get/AVM/Product/getProductList/getProductList')
+// getProductList(app)
+const getProductListApproved = require('./CRUD/get/AVM/Product/getProductList/getProductListApproved')
+getProductListApproved(app)
+const getProductListPrepared = require('./CRUD/get/AVM/Product/getProductList/getProductListPrepared')
+getProductListPrepared(app)
+const getProductListRejected = require('./CRUD/get/AVM/Product/getProductList/getProductListRejected')
+getProductListRejected(app)
+const getProductListUnderApproved = require('./CRUD/get/AVM/Product/getProductList/getProductListUnderApproved')
+getProductListUnderApproved(app)
+const getProductListVoid = require('./CRUD/get/AVM/Product/getProductList/getProductListVoid')
+getProductListVoid(app)
+
 const getPrPV = require('./CRUD/get/AVM/Product/getPrPV/getPrPV')
 getPrPV(app)
 

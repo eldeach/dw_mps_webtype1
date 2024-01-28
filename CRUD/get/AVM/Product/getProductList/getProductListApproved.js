@@ -3,11 +3,12 @@
 const { sendQry } = require ('../../../../../dbconns/maria/thisdb');
 
 
-async function getEqPrm (app) {
-    app.get('/geteqprm', async function ( req, res ) {
-        let rs = await sendQry(`SELECT * FROM view_get_eq_prm`)
+
+function getProductListApproved (app) {
+    app.get('/getproductlistapproved', async function ( req, res ) {
+        let rs = await sendQry(`SELECT * FROM view_get_product_list_approved`)
         res.status(200).json(rs)
     })
 }
 
-module.exports = getEqPrm;
+module.exports = getProductListApproved;
