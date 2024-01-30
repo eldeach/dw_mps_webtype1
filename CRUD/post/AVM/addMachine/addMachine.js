@@ -238,7 +238,7 @@ async function addMachine ( app ) {
             // console.log('prm_gra_micro_prs_id')
             // prm_spray_rpm 검증 저장 준비
             // 새 prm_spray_rpm 검증 ID 발행받기 (DB에 저장)
-            let prm_gra_micro_prs_id = await insertNewIdNumber( 'prm_gra_micro_prs_id', 'tb_prm_gra_micro_prs_id', 'pgsai_' )
+            let prm_gra_micro_prs_id = await insertNewIdNumber( 'prm_gra_micro_prs_id', 'tb_prm_gra_micro_prs_id', 'pgmpi_' )
             // 새로 받은 정기적 멸균 재적격성 평가 목록 ID로 DB에 저장하기
             let rsDetailed_prm_gra_micro_prs= await insertDetailedMcPrm( 'tb_prm_gra_micro_prs', 'prm_gra_micro_prs_id', prm_gra_micro_prs_id, req.body.prm_gra_micro_prs )
 
