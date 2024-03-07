@@ -270,6 +270,13 @@ async function addMachine ( app ) {
             // 새로 받은 정기적 멸균 재적격성 평가 목록 ID로 DB에 저장하기
             let rsDetailed_prm_inlet_air_vol_rpm = await insertDetailedMcPrm( 'tb_prm_inlet_air_vol_rpm', 'prm_inlet_air_vol_rpm_id', prm_inlet_air_vol_rpm_id, req.body.prm_inlet_air_vol_rpm )
 
+            // console.log('prm_exh_air_vol_rpm_id')
+            // prm_exh_air_vol_rpm 검증 저장 준비
+            // 새 prm_exh_air_vol_rpm 검증 ID 발행받기 (DB에 저장)
+            let prm_exh_air_vol_rpm_id = await insertNewIdNumber( 'prm_exh_air_vol_rpm_id', 'tb_prm_exh_air_vol_rpm_id', 'peavri_' )
+            // 새로 받은 정기적 멸균 재적격성 평가 목록 ID로 DB에 저장하기
+            let rsDetailed_prm_exh_air_vol_rpm = await insertDetailedMcPrm( 'tb_prm_exh_air_vol_rpm', 'prm_exh_air_vol_rpm_id', prm_exh_air_vol_rpm_id, req.body.prm_exh_air_vol_rpm )
+
             // console.log('prm_roller_gap_id')
             // prm_fill 검증 저장 준비
             // 새 prm_fill 검증 ID 발행받기 (DB에 저장)
@@ -486,6 +493,7 @@ async function addMachine ( app ) {
                 prm_exh_air_temp_id,
                 prm_inlet_air_vol_id,
                 prm_inlet_air_vol_rpm_id,
+                prm_exh_air_vol_rpm_id,
                 prm_roller_speed_id,
                 prm_roller_gap_id,
                 prm_grate_id,
@@ -563,6 +571,7 @@ async function addMachine ( app ) {
                 '${prm_exh_air_temp_id}',
                 '${prm_inlet_air_vol_id}',
                 '${prm_inlet_air_vol_rpm_id}',
+                '${prm_exh_air_vol_rpm_id}',
                 '${prm_roller_speed_id}',
                 '${prm_roller_gap_id}',
                 '${prm_grate_id}',

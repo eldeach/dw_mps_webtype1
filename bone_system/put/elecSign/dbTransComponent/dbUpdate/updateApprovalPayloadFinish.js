@@ -2,6 +2,8 @@
 // Function
 const { sendQry } = require ('../../../../../dbconns/maria/thisdb');
 
+
+
 async function updateApprovalPayloadFinish (approval_payload_id) {
     // 특정 테이블에 귀속되면 안됨
     // tb_approval_payload 테이블에 approval_payload_id 값만 사용해서 결재라인 종료일을 기록해야함

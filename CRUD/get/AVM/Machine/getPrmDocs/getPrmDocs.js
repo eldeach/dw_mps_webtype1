@@ -23,6 +23,7 @@ async function getPrmDocs(app) {
             ${req.query.prm_tbl_name}
         WHERE
             ${req.query.prm_id_col_name} = (SELECT ${req.query.prm_id_col_name} FROM tb_machine WHERE mng_code = "${req.query.mng_code}" AND data_ver = ${req.query.data_ver} AND approval_status = "APPROVED")
+        ORDER BY doc_approval_date DESC;
         `.replace(/\n/g, ""))
         res.status(200).json(rs)
     })

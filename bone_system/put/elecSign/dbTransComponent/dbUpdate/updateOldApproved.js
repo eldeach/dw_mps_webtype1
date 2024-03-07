@@ -2,6 +2,15 @@
 // Function
 const { sendQry } = require ('../../../../../dbconns/maria/thisdb');
 
+
+/**
+    * @version 1.0.0
+    * @params {string} tbl_name 레코드가 기록되는 테이블 명
+    * @params {string} approval_payload_id 레코드가 가진 approval_payload_id
+    * @returns {string} DB update 결과 return
+ */
+
+
 async function updateOldApproved(tbl_name, approval_payload_id) {
     let rs = await sendQry(`
         UPDATE ${tbl_name}
