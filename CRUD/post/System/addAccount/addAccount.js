@@ -99,9 +99,10 @@ async function addAccount ( app ) {
             let birthday = null
 
             if (!req.body.user_birthday) {
-                
+                birthday = `NULL`
             } else {
-                birthday = `date_format('${req.body.user_birthday}','%Y-%m-%d')`
+                // birthday = `date_format('${req.body.user_birthday}','%Y-%m-%d')`
+                birthday = `'${req.body.user_birthday}'`
             }
  
             // 데이터 쿼리 준비
