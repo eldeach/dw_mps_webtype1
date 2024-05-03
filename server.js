@@ -176,6 +176,11 @@ const addAccount = require('./CRUD/post/System/addAccount/addAccount');
 addAccount(app)
 
 
+// Mailer
+const mailerMngList = require('./Mailer/mailerMngList');
+mailerMngList(app)
+
+
 // Middleware Function
 const mwAuthCheck = require ( './Passport/LocalStrategy/handleSessionFunc/middleware/mwAuthCheck' );
 
