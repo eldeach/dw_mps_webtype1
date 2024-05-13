@@ -9,7 +9,7 @@ async function mailerMngList (app) {
         SELECT
             M.mng_name,
             ML.*
-        FROM mailing_list AS ML
+        FROM mailing_tb_list AS ML
         LEFT OUTER JOIN (SELECT * FROM tb_machine WHERE approval_status = 'APPROVED') AS M
         ON ML.MNG_CODE = M.mng_code
         `)
