@@ -176,9 +176,9 @@ const addAccount = require('./CRUD/post/System/addAccount/addAccount');
 addAccount(app)
 
 
-// Mailer
-const mailerMngList = require('./Mailer/mailerMngList');
-mailerMngList(app)
+// Mailing
+const mailinggetlist = require('./Mailing/mailinggetlist');
+mailinggetlist(app)
 
 
 // Middleware Function
