@@ -177,8 +177,8 @@ addAccount(app)
 
 
 // Mailing
-const mailinggetlist = require('./Mailing/mailinggetlist');
-mailinggetlist(app)
+const mailingList = require('./Mailing/mailingList');
+mailingList(app)
 
 
 // Middleware Function
