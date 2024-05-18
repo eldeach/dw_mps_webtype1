@@ -37,6 +37,7 @@ async function mailingList(app) {
     })
     // INSERT
     app.post('/reqmailingaddlist', async function (req, res) {
+        let valuePayload = JSON.parse(req.query.valuePayload)
         let prm = {
             pInput: [
                 {
@@ -45,15 +46,15 @@ async function mailingList(app) {
                 },
                 {
                     name: 'P_MNG_CODE',
-                    value: `${req.body.MNG_CODE}`
+                    value: `${valuePayload.MNG_CODE}`
                 },
                 {
                     name: 'P_EMAIL_ADDRESS',
-                    value: `${req.body.EMAIL_ADDRESS}`
+                    value: `${valuePayload.EMAIL_ADDRESS}`
                 },
                 {
                     name: 'P_EMAIL_ROLE',
-                    value: `${req.body.EMAIL_ROLE}`
+                    value: `${valuePayload.EMAIL_ROLE}`
                 },
                 {
                     name: 'P_USE_YN',
@@ -71,11 +72,24 @@ async function mailingList(app) {
             procedure: 'mailing_sp_add_list'
         }
         let rs = await sendReq(prm)
+        console.log(rs)
         if (!rs.errno) {
             if (rs.output.P_RESULT == "SUCCESS") {
                 res.status(200).json(rs)
             } else if (rs.output.P_RESULT == "ERROR") {
-                res.status(200).json(rs)
+                let errCode = rs.output.P_VALUE.split('/')[0]
+                if (errCode == '1062') { // PK 중복인 경우
+                    res.status(200).json({
+                        output: {
+                            P_RESULT: 'ERROR',
+                            P_VALUE: `${valuePayload.MNG_CODE}, ${valuePayload.EMAIL_ADDRESS}은 중복된 수신처입니다.`
+                        },
+                        recordsets: []
+                    })
+
+                } else {
+                    res.status(200).json(rs)
+                }
             }
         } else {
             let rserr = {
@@ -90,15 +104,7 @@ async function mailingList(app) {
 
     // UPDATE
     app.put('/reqmailingupdlist', async function (req, res) {
-
-        let disableUUIDs = ''
-        req.body.disableRows.map((value, index) => {
-            disableUUIDs = disableUUIDs.concat(`\\'${value}\\'`)
-            if (index != (req.body.disableRows.length - 1)) {
-                disableUUIDs = disableUUIDs.concat(',')
-            }
-        })
-        console.log(disableUUIDs)
+        let valuePayload = JSON.parse(req.query.valuePayload)
         let prm = {
             pInput: [
                 {
@@ -107,15 +113,15 @@ async function mailingList(app) {
                 },
                 {
                     name: 'P_UUID_LIST',
-                    value: `${req.body.UUID_LIST}`
+                    value: `${valuePayload.UUID_STR}`
                 },
                 {
                     name: 'P_EMAIL_ADDRESS',
-                    value: `${req.body.EMAIL_ADDRESS}`
+                    value: `${valuePayload.EMAIL_ADDRESS}`
                 },
                 {
                     name: 'P_EMAIL_ROLE',
-                    value: `${req.body.EMAIL_ROLE}`
+                    value: `${valuePayload.EMAIL_ROLE}`
                 }
             ],
             pOutput: [
@@ -133,7 +139,19 @@ async function mailingList(app) {
             if (rs.output.P_RESULT == "SUCCESS") {
                 res.status(200).json(rs)
             } else if (rs.output.P_RESULT == "ERROR") {
-                res.status(200).json(rs)
+                let errCode = rs.output.P_VALUE.split('/')[0]
+                if (errCode == '1062') { // PK 중복인 경우
+                    res.status(200).json({
+                        output: {
+                            P_RESULT: 'ERROR',
+                            P_VALUE: `${valuePayload.MNG_CODE}, ${valuePayload.EMAIL_ADDRESS}은 중복된 수신처입니다.`
+                        },
+                        recordsets: []
+                    })
+
+                } else {
+                    res.status(200).json(rs)
+                }
             }
         } else {
             let rserr = {
@@ -148,15 +166,13 @@ async function mailingList(app) {
 
     // UPDATE
     app.put('/reqmailingguseynlist', async function (req, res) {
-        console.log(req)
         let disableUUIDs = ''
-        req.body.disableRows.map((value, index) => {
+        req.query.disableRows.map((value, index) => {
             disableUUIDs = disableUUIDs.concat(`\\'${value}\\'`)
-            if (index != (req.body.disableRows.length - 1)) {
+            if (index != (req.query.disableRows.length - 1)) {
                 disableUUIDs = disableUUIDs.concat(',')
             }
         })
-        console.log(disableUUIDs)
         let prm = {
             pInput: [
                 {
@@ -169,7 +185,7 @@ async function mailingList(app) {
                 },
                 {
                     name: 'P_USE_YN',
-                    value: 'N'
+                    value: req.query.useyn
                 }
             ],
             pOutput: [
