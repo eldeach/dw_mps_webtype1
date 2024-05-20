@@ -1,6 +1,6 @@
 // ======================================================================================== [Import Component] js
 // Function
-const { sendReq } = require('../Dbc/dbcMariaLocal');
+const { sendReq } = require('../Dbc/dbcMariaAVM');
 
 
 async function mailingList(app) {

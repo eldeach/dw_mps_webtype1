@@ -54,8 +54,11 @@ app.use( express.static(path.join(__dirname, process.env.react_build_path )));
 //app.use( expressSanitizer() );
 //app.use( "/", express.static("public") );
 
+const {scdRunAll} = require('./Scheduler/scdScheduler')
+
 // 포트 정의
-app.listen( process.env.httpPORT, function() {
+app.listen( process.env.httpPORT, async function() {
+  scdRunAll()
   console.log('listening on '+ process.env.httpPORT)
 })
 

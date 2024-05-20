@@ -2,11 +2,11 @@ const mariadb = require('mariadb');
 
 // Connection 정보 정의
 const pool = mariadb.createPool({
-  host: process.env.MARIA_DB_LOCAL_SERVER,
-  port: process.env.MARIA_DB_LOCAL_SERVER_PORT,
-  database: process.env.MARIA_DB_LOCAL_DBNAME,
-  user: process.env.MARIA_DB_LOCAL_USER,
-  password: process.env.MARIA_DB_LOCAL_PW,
+  host: process.env.MARIA_DB_AVM_SERVER,
+  port: process.env.MARIA_DB_AVM_SERVER_PORT,
+  database: process.env.MARIA_DB_AVM_DBNAME,
+  user: process.env.MARIA_DB_AVM_USER,
+  password: process.env.MARIA_DB_AVM_PW,
   connectionLimit: 5
 });
 
