@@ -6,9 +6,11 @@ const transporter = nodemailer.createTransport({
     port: MAILER_PORT,
     host: MAILER_HOST,
     pool: true,
-    maxConnections: 1000,
     secure: false,
     requireTLS: true,
+    tls: {									
+        rejectUnauthorized: false,
+     },
     auth: {
         user: MAILER_USER,
         pass: MAILER_PASS

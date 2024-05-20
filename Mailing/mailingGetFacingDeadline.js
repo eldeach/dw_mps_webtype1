@@ -20,7 +20,7 @@ async function mailingGetFacingDeadline() {
             let mailMsgs = []
             rs.recordsets[0].map(async (record, index) => {
                 let buildMail = mailContentBuilder(record);
-                let tempaa = 'eldeach@naver.com'
+                let tempaa = '2130176@idstrust.com'
                 let mailMsg = {
                     to: tempaa, // 수신할 이메일
                     subject: buildMail.mailTitle, // 메일 제목

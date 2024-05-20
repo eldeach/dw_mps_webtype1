@@ -18,18 +18,19 @@ const flash= require('connect-flash')
 // axios AJAX
 const { default: axios } = require('axios');
 
-// express-sanitizers - 아직 사용 할 일 없음
-//const expressSanitizer = require("express-sanitizer");
+// express-sanitizers : https 관련 라이브러리
+const expressSanitizer = require("express-sanitizer");
 
-// https - 아직 사용 할 일 없음
-//const https = require("https");
-//const fs = require("fs");
+// https
+const https = require("https");
+const fs = require("fs");
 
-// SSL - 아직 사용 할 일 없음
-//const options = {
-//  key: fs.readFileSync("./secrets/cert.key"),
-//  cert: fs.readFileSync("./secrets/cert.crt"),
-//};
+// SSL
+const options = {
+  key: fs.readFileSync("./secrets/cert.key"),
+  cert: fs.readFileSync("./secrets/cert.crt"),
+};
+
 
 // OS 타입 확인 - 아직 사용할 일 없음
 // const { type } = require('os');
@@ -49,24 +50,24 @@ app.use( express.urlencoded({limit: '10mb', extended: true }))
 app.use( flash() )
 app.use( express.static(path.join(__dirname, process.env.react_build_path )));
 
-// https
-//app.use( express.urlencoded({ extended: true }) ); // 중복인가...?
-//app.use( expressSanitizer() );
-//app.use( "/", express.static("public") );
+// https 미들웨어
+app.use(expressSanitizer());
+app.use("/", express.static("public"));
 
 const {scdRunAll} = require('./Scheduler/scdScheduler')
 
 // 포트 정의
-app.listen( process.env.httpPORT, async function() {
-  scdRunAll()
-  console.log('listening on '+ process.env.httpPORT)
-})
+// app.listen( process.env.httpPORT, async function() {
+//   scdRunAll()
+//   console.log('listening on '+ process.env.httpPORT)
+// })
 
 // https 의존성으로 certificate와 private key로 새로운 서버를 시작
-// https.createServer( options, app ).listen( process.env.PORT, () => {
-  //   console.log( 'HTTPS server started on port '+ process.env.PORT )
-  // });
-  
+https.createServer(options, app).listen(process.env.httpPORT, async () => {
+  scdRunAll()
+  console.log('HTTPS server started on port ' + process.env.httpPORT)
+});
+
 
 // ======================================================================================== [Import Component] js
 // Function

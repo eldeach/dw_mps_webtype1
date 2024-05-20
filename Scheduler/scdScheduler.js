@@ -1,5 +1,5 @@
 const schedule = require('node-schedule');
-const { sendQry, sendReq } = require('../Dbc/dbcMariaAVM')
+const { sendReq } = require('../Dbc/dbcMariaAVM')
 const moment = require('moment');
 const { scdTaskList } = require('./scdTaskList')
 
