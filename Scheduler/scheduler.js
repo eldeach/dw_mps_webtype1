@@ -1,7 +1,13 @@
 const schedule = require('node-schedule');
 const { sendReq } = require('../Dbc/dbcMariaAVM')
 const moment = require('moment');
-const { scdTaskList } = require('./scdTaskList')
+// dayjs
+const dayjs = require('dayjs');
+const utc = require('dayjs/plugin/utc')
+const timezone = require('dayjs/plugin/timezone')
+dayjs.extend(utc)
+dayjs.extend(timezone)
+const { schedulerTaskList } = require('./schedulerTaskList')
 
 function scdReRunAll() {
     scdStopAll();
@@ -49,12 +55,11 @@ async function scdRunAll() {
 
 async function nextScheduler(task) {
     let nextDate = await nextDateFinder(task)
-    // console.log(nextDate)
     if (nextDate != 0) {
         schedule.scheduleJob(nextDate, async () => {
-            scdTaskList[task.TASK_NAME]()
+            schedulerTaskList[task.TASK_NAME]()
             await scdRunDateUpdate(task, nextDate)
-            if (!task.END_DATE || (moment(task.END_DATE).diff(moment(new Date()), 'seconds') >= 0)) {
+            if (moment(task.END_DATE).diff(moment(new Date()), 'seconds') >= 0) {
                 nextScheduler(task)
             }
         })
@@ -82,7 +87,9 @@ async function nextDateFinder(task) { // 다음 실행 시점이 즉시일 수�
     let rs = await sendReq(prm)
     if (!rs.errno) {
         if (rs.output.P_RESULT == "SUCCESS") {
-            return rs.output.P_VALUE
+            let nextDateUTC = rs.output.P_VALUE
+            let nextDate = dayjs(nextDateUTC).tz("Asia/Seoul").format("YYYY-MM-DD HH:mm:ss")
+            return nextDate
         } else if (rs.output.P_RESULT == "ERROR") {
             console.log(rs.output)
             return 0;

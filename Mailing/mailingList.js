@@ -53,6 +53,10 @@ async function mailingList(app) {
                     value: `${valuePayload.EMAIL_ADDRESS}`
                 },
                 {
+                    name: 'P_RECEIVE_TYPE',
+                    value: `${valuePayload.RECEIVE_TYPE}`
+                },
+                {
                     name: 'P_EMAIL_ROLE',
                     value: `${valuePayload.EMAIL_ROLE}`
                 },
@@ -72,7 +76,6 @@ async function mailingList(app) {
             procedure: 'mailing_sp_add_list'
         }
         let rs = await sendReq(prm)
-        console.log(rs)
         if (!rs.errno) {
             if (rs.output.P_RESULT == "SUCCESS") {
                 res.status(200).json(rs)
@@ -112,12 +115,16 @@ async function mailingList(app) {
                     value: `${req.user}`
                 },
                 {
-                    name: 'P_UUID_LIST',
+                    name: 'P_UUID_STR',
                     value: `${valuePayload.UUID_STR}`
                 },
                 {
                     name: 'P_EMAIL_ADDRESS',
                     value: `${valuePayload.EMAIL_ADDRESS}`
+                },
+                {
+                    name: 'P_RECEIVE_TYPE',
+                    value: `${valuePayload.RECEIVE_TYPE}`
                 },
                 {
                     name: 'P_EMAIL_ROLE',
@@ -165,7 +172,7 @@ async function mailingList(app) {
     })
 
     // UPDATE
-    app.put('/reqmailingguseynlist', async function (req, res) {
+    app.put('/reqmailinguseynlist', async function (req, res) {
         let disableUUIDs = ''
         req.query.disableRows.map((value, index) => {
             disableUUIDs = disableUUIDs.concat(`\\'${value}\\'`)

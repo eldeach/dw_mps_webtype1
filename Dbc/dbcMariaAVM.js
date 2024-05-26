@@ -29,7 +29,7 @@ async function sendQry(str) {
 
 async function sendReq(prm) {
   let conn;
-  let rs =[];
+  let rs = [];
   let ov = {};
   try {
     conn = await pool.getConnection();
@@ -49,7 +49,7 @@ async function sendReq(prm) {
       pOutputStr.push(`@${value.name}`)
     })
 
-    let inputEnd=',';
+    let inputEnd = ',';
     if (pInputStr.length > 0) {
       inputEnd = ','
     } else {
@@ -60,9 +60,9 @@ async function sendReq(prm) {
     pOutputStr.map((value, index) => {
       ov[`${value.replace('@', '')}`] = out[0][value]
     })
-    if(rs[0]) rs.pop()
-    else rs=[]
-    return {output : ov, recordsets : rs}; // MS SQL 라이브러리와 동일 사용 패턴을 구현하기 위함, result를 바로 return 하는 것도 가능함
+    if (rs[0]) rs.pop()
+    else rs = []
+    return { output: ov, recordsets: rs }; // MS SQL 라이브러리와 동일 사용 패턴을 구현하기 위함, result를 바로 return 하는 것도 가능함
   } catch (err) {
     return err
   } finally {
