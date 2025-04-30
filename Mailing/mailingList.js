@@ -1,6 +1,6 @@
 // ======================================================================================== [Import Component] js
 // Function
-const { sendReq } = require('../Dbc/dbcMariaAVM');
+const { sendQry, sendReq } = require('../Dbc/dbcMariaAVM');
 
 
 async function mailingList(app) {
@@ -152,6 +152,132 @@ async function mailingList(app) {
                         output: {
                             P_RESULT: 'ERROR',
                             P_VALUE: `${valuePayload.MNG_CODE}, ${valuePayload.EMAIL_ADDRESS}은 중복된 수신처입니다.`
+                        },
+                        recordsets: []
+                    })
+
+                } else {
+                    res.status(200).json(rs)
+                }
+            }
+        } else {
+            let rserr = {
+                output: {
+                    P_RESULT: "ERROR",
+                    P_VALUE: `${rs.errno}/${rs.sqlState}/${rs.text}`
+                },
+            }
+            res.status(200).json(rserr)
+        }
+    })
+
+    // UPDATE - add/update mailing list by team
+    app.get('/reqmngteamlist', async function (req, res) {
+        let prm = {
+            pInput: [],
+            pOutput: [
+                {
+                    name: 'P_RESULT'
+                },
+                {
+                    name: 'P_VALUE'
+                }
+            ],
+            procedure: 'machine_sp_get_mngteamlist'
+        }
+        let rs = await sendReq(prm)
+        if (!rs.errno) {
+            if (rs.output.P_RESULT == "SUCCESS") {
+                res.status(200).json(rs)
+            } else if (rs.output.P_RESULT == "ERROR") {
+                res.status(200).json(rs)
+            }
+        } else {
+            let rserr = {
+                output: {
+                    P_RESULT: "ERROR",
+                    P_VALUE: `${rs.errno}/${rs.sqlState}/${rs.text}`
+                },
+            }
+            res.status(200).json(rserr)
+        }
+    })
+
+    app.get('/reqnowlistbyteam', async function (req, res) {
+        let prm = {
+            pInput: [
+                {
+                    name: 'P_MNG_TEAM',
+                    value: `${req.query.MNG_TEAM}`
+                },
+            ],
+            pOutput: [
+                {
+                    name: 'P_RESULT'
+                },
+                {
+                    name: 'P_VALUE'
+                }
+            ],
+            procedure: 'mailing_sp_get_nowlistbyteam'
+        }
+        let rs = await sendReq(prm)
+        if (!rs.errno) {
+            if (rs.output.P_RESULT == "SUCCESS") {
+                res.status(200).json(rs)
+            } else if (rs.output.P_RESULT == "ERROR") {
+                res.status(200).json(rs)
+            }
+        } else {
+            let rserr = {
+                output: {
+                    P_RESULT: "ERROR",
+                    P_VALUE: `${rs.errno}/${rs.sqlState}/${rs.text}`
+                },
+            }
+            res.status(200).json(rserr)
+        }
+    })
+
+    //machine_sp_get_mngteamlist
+    app.put('/reqmailingupdlistbyteam', async function (req, res) {
+        let valuePayload = JSON.parse(req.query.valuePayload)
+        let prm = {
+            pInput: [
+                {
+                    name: 'P_CALL_USER_ID',
+                    value: `${req.user}`
+                },
+                {
+                    name: 'P_MNG_TEAM',
+                    value: `${valuePayload.MNG_TEAM}`
+                },
+                {
+                    name: 'P_MAIL_LIST_JSON',
+                    value: `${JSON.stringify(valuePayload.MAIL_LIST)}`
+                },
+            ],
+            pOutput: [
+                {
+                    name: 'P_RESULT'
+                },
+                {
+                    name: 'P_VALUE'
+                }
+            ],
+            procedure: 'mailing_sp_upd_listbyteam'
+        }
+        let rs = await sendReq(prm)
+        if (!rs.errno) {
+            if (rs.output.P_RESULT == "SUCCESS") {
+                res.status(200).json(rs)
+            } else if (rs.output.P_RESULT == "ERROR") {
+                let errCode = rs.output.P_VALUE.split('/')[0]
+                if (errCode == '1062') { // PK 중복인 경우
+                    res.status(200).json({
+                        output: {
+                            P_RESULT: 'ERROR',
+                            P_VALUE: `중복된 수신처가 있습니다.`
                         },
                         recordsets: []
                     })

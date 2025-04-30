@@ -17,6 +17,8 @@ async function mwAuthCheck (req, res, next) {
             next()
           } else {
             res.redirect( '/noauth' )
+            // next()
+
           }
     } else {
         req.session.destroy( async() => {
